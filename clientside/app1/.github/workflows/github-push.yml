@@ -1,0 +1,45 @@
+name: errors and warnings
+
+on:
+  push:
+    branches:
+      - cicd-githubactions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.13"
+
+      - name: Navigate to main
+        working-directory: main
+        run: echo "Changed directory to main"
+
+      - name: Install dependencies
+        working-directory: main
+        run: npm install
+
+      # - name: Run tests
+      #   working-directory: main
+      #   run: npm test
+
+      - name: Show errors and warnings
+        working-directory: main
+        run: |
+          echo "Errors and Warnings:"
+          npm run lint || true
+
+      - name: Display job status
+        if: ${{ success() }}
+        run: echo "Job succeeded"
+
+      - name: Display job status
+        if: ${{ failure() }}
+        run: echo "Job failed"
