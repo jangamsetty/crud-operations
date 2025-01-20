@@ -1,11 +1,16 @@
 name: Hello World
 
-on: [push]
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   hello_world_job:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Specifies the environment in which the job runs
 
     steps:
       - name: Print Hello World
-        run: echo "Hello, World!"
+        run: echo "Hello, World!" # Executes a shell command to print "Hello, World!"
