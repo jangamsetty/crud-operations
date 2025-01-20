@@ -1,6 +1,14 @@
 name: Hello World
 
-on: [push] # Triggers the workflow on any push event
+on:
+  workflow_dispatch:
+    inputs:
+      some_input:
+        description: "This is an example input"
+        required: false
+  push:
+    branches:
+      - master
 
 jobs:
   hello_world_job:
