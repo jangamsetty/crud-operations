@@ -1,49 +1,37 @@
-name: CI Check
+name: Code Quality Check
 
 on:
   push:
     branches:
-      - "**" # Trigger for all branches. Adjust if you want specific branches.
-  pull_request:
-    branches:
-      - "**"
+      - "**" # Runs on all branches
 
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code
-      - name: Checkout Code
+      # Step 1: Checkout the repository code
+      - name: Checkout code
         uses: actions/checkout@v3
 
       # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16" # Adjust Node.js version as needed
+          node-version: "16" # Specify your Node.js version
+          cache: "npm"
 
       # Step 3: Install dependencies
-      - name: Install Dependencies
-        run: |
-          cd user-mgmt
-          npm install
+      - name: Install dependencies
+        run: npm ci
+        working-directory: DevPlazaBackendInternal/user-mgmt
 
       # Step 4: Run linting
-      - name: Run Linting
-        run: |
-          cd user-mgmt
-          npm run lint
-        continue-on-error: false
+      - name: Run ESLint
+        run: npx eslint . --ext .js,.ts
+        working-directory: DevPlazaBackendInternal/user-mgmt
 
       # Step 5: Run tests
-      - name: Run Tests
-        run: |
-          cd user-mgmt
-          npm test
-        continue-on-error: false
-
-      # Step 6: Output Results
-      - name: Show Test and Lint Results
-        if: failure()
-        run: echo "Linting or Tests failed. Please check the logs above for details."
+      - name: Run tests
+        run: npm test
+        working-directory: DevPlazaBackendInternal/user-mgmt
