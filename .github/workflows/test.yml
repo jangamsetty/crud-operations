@@ -1,19 +1,49 @@
-name: Hello World
+name: CI Check
 
 on:
-  workflow_dispatch:
-    inputs:
-      some_input:
-        description: "This is an example input"
-        required: false
   push:
     branches:
-      - master
+      - "**" # Trigger for all branches. Adjust if you want specific branches.
+  pull_request:
+    branches:
+      - "**"
 
 jobs:
-  hello_world_job:
-    runs-on: ubuntu-latest # Specifies the environment in which the job runs
+  lint-and-test:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Print Hello World
-        run: echo "Hello, World!" # Executes a shell command to print "Hello, World!"
+      # Step 1: Checkout code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16" # Adjust Node.js version as needed
+
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: |
+          cd user-mgmt
+          npm install
+
+      # Step 4: Run linting
+      - name: Run Linting
+        run: |
+          cd user-mgmt
+          npm run lint
+        continue-on-error: false
+
+      # Step 5: Run tests
+      - name: Run Tests
+        run: |
+          cd user-mgmt
+          npm test
+        continue-on-error: false
+
+      # Step 6: Output Results
+      - name: Show Test and Lint Results
+        if: failure()
+        run: echo "Linting or Tests failed. Please check the logs above for details."
