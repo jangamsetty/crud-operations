@@ -1,0 +1,24 @@
+pipeline:
+  name: SamplePipeline
+  identifier: SamplePipeline
+  projectIdentifier: your_project
+  orgIdentifier: your_org
+  tags: {}
+  stages:
+    - stage:
+        name: harness_build_testing
+        identifier: harness_build_testing
+        type: CI
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: Build
+                  identifier: Build
+                  type: Run
+                  spec:
+                    shell: Bash
+                    command: |
+                      echo "Starting the Build Process"
+                      npm install
+                      npm run build
