@@ -8,7 +8,7 @@ pipeline:
     - stage:
         name: harness_build_testing
         identifier: harness_build_testing
-        type: CI  # Added 'type' field
+        type: CI
         spec:
           execution:
             steps:
@@ -31,7 +31,8 @@ pipeline:
                 limits:
                   memory: 2Gi
                   cpu: "1"
-        failureStrategies:  # Added failure strategies
+          serviceDependencies: []  # Ensures execution section is not misplaced
+        failureStrategies:
           - onFailure:
               errors:
                 - AllErrors
