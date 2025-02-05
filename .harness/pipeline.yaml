@@ -27,6 +27,7 @@ pipeline:
             spec:
               connectorRef: your_k8s_connector
               namespace: default
+              delegateSelectors: []  # Allow any delegate by not enforcing specific selectors
               resources:
                 limits:
                   memory: 2Gi
