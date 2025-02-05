@@ -36,3 +36,5 @@ pipeline:
                   identifier: Run_1
                   spec:
                     shell: Powershell
+          delegateSelectors:
+            - linux-amd64
