@@ -1,47 +1,22 @@
 pipeline:
-  name: Build_Pipeline
-  identifier: Build_Pipeline
+  name: Hello_Harness_Pipeline
+  identifier: Hello_Harness_Pipeline
   projectIdentifier: your_project_id
   orgIdentifier: your_org_id
   tags: {}
   stages:
     - stage:
-        name: Build
-        identifier: Build
-        description: "Stage to build the application"
+        name: Print_Hello
+        identifier: Print_Hello
+        description: "Stage to print Hello Harness"
         type: CI
         spec:
           execution:
             steps:
               - step:
-                  name: Checkout Code
-                  identifier: Checkout_Code
-                  type: GitClone
-                  spec:
-                    connectorRef: your_github_connector
-                    repoName: your_repository_name
-                    depth: 1
-              - step:
-                  name: Install Dependencies
-                  identifier: Install_Dependencies
+                  name: Print Hello Harness
+                  identifier: Print_Hello_Harness
                   type: Run
                   spec:
                     shell: Bash
-                    command: |
-                      npm install
-              - step:
-                  name: Run Tests
-                  identifier: Run_Tests
-                  type: Run
-                  spec:
-                    shell: Bash
-                    command: |
-                      npm test
-              - step:
-                  name: Build App
-                  identifier: Build_App
-                  type: Run
-                  spec:
-                    shell: Bash
-                    command: |
-                      npm run build
+                    command: echo "Hello Harness"
