@@ -8,7 +8,7 @@ pipeline:
     - stage:
         name: harness_build_testing
         identifier: harness_build_testing
-        type: CI
+        type: CI  # Added 'type' field
         spec:
           execution:
             steps:
@@ -22,3 +22,21 @@ pipeline:
                       echo "Starting the Build Process"
                       npm install
                       npm run build
+          infrastructure:
+            type: KubernetesDirect  # Modify if using a different infra
+            spec:
+              connectorRef: your_k8s_connector
+              namespace: default
+              resources:
+                limits:
+                  memory: 2Gi
+                  cpu: "1"
+        failureStrategies:  # Added failure strategies
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: Retry
+                spec:
+                  retryCount: 3
+                  retryIntervals: [2s, 5s, 10s]
