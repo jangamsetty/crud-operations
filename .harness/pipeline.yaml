@@ -1,22 +1,24 @@
 pipeline:
-  name: Hello_Harness_Pipeline
-  identifier: Hello_Harness_Pipeline
-  projectIdentifier: your_project_id
-  orgIdentifier: your_org_id
+  name: SamplePipeline
+  identifier: SamplePipeline
+  projectIdentifier: your_project
+  orgIdentifier: your_org
   tags: {}
   stages:
     - stage:
-        name: Print_Hello
-        identifier: Print_Hello
-        description: "Stage to print Hello Harness"
+        name: harness_build_testing
+        identifier: harness_build_testing
         type: CI
         spec:
           execution:
             steps:
               - step:
-                  name: Print Hello Harness
-                  identifier: Print_Hello_Harness
+                  name: Build
+                  identifier: Build
                   type: Run
                   spec:
                     shell: Bash
-                    command: echo "Hello Harness"
+                    command: |
+                      echo "Starting the Build Process"
+                      npm install
+                      npm run build
