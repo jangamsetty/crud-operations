@@ -22,9 +22,6 @@ pipeline:
             enabled: true
           buildIntelligence:
             enabled: true
-          platform:
-            os: Windows
-            arch: Amd64
           runtime:
             type: Docker
             spec: {}
@@ -36,5 +33,3 @@ pipeline:
                   identifier: Run_1
                   spec:
                     shell: Powershell
-          delegateSelectors:
-            - linux-amd64
