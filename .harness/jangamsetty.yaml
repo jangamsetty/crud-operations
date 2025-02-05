@@ -1,0 +1,38 @@
+pipeline:
+  name: jangamsetty
+  identifier: jangamsetty
+  projectIdentifier: harness_build_testing
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: jangamsetty
+        repoName: crud-operations
+        build: <+input>
+  stages:
+    - stage:
+        name: harness_build_testing
+        identifier: harness_build_testing
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+          buildIntelligence:
+            enabled: true
+          platform:
+            os: Windows
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Powershell
