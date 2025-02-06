@@ -36,4 +36,4 @@ pipeline:
                   identifier: Run_1
                   spec:
                     shell: Sh
-                    command: npm i --f
+                    command: npm i  --f
