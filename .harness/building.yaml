@@ -38,4 +38,4 @@ pipeline:
             type: Docker
             spec: {}
         delegateSelectors:
-          - docker-delegate
+          - hungry_davinci
