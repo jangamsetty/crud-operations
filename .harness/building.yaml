@@ -22,12 +22,12 @@ pipeline:
             enabled: true
           buildIntelligence:
             enabled: true
-          platform:
-            os: Windows
-            arch: Amd64
-          runtime:
-            type: Docker
-            spec: {}
+          infrastructure:
+            type: VM  
+            spec:
+              os: Windows
+              pool:
+                name: my-local-runner  
           execution:
             steps:
               - step:
