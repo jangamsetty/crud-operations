@@ -22,12 +22,6 @@ pipeline:
             enabled: true
           buildIntelligence:
             enabled: true
-          infrastructure:
-            type: VM  
-            spec:
-              os: Windows
-              pool:
-                name: my-local-runner  
           execution:
             steps:
               - step:
@@ -37,3 +31,11 @@ pipeline:
                   spec:
                     shell: Sh
                     command: npm i --f
+          platform:
+            os: Windows
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+        delegateSelectors:
+          - docker-delegate
