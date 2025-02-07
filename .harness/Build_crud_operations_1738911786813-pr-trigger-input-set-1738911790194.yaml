@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_crud_operations_1738911786813-pr-trigger-input-set
+  identifier: Build_crud_operations_1738911786813prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: buildproject
+  pipeline:
+    identifier: Build_crud_operations_1738911786813
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
