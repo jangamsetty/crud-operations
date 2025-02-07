@@ -34,7 +34,4 @@ pipeline:
             spec: {}
         type: CI
   delegateSelectors:
-    - linux-amd64
-    - harness-linux-delegate
     - docker-delegate
-    - windows-amd64
