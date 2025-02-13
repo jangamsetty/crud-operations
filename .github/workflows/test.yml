@@ -1,19 +1,62 @@
-name: Hello Git
+name: Code Quality Check
 
 on:
   push:
     branches:
-      - "**"
+      - "**" # Runs on all branches
   pull_request:
     branches:
-      - "**"
-  workflow_dispatch: # Allows manual trigger via API
+      - "**" # Runs on all PRs
+  workflow_dispatch: # Enables manual triggering via API
 
 jobs:
-  hello-git:
-    name: Say Hello
+  lint-and-test:
+    name: Lint and Test Code
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print Hello Git
-        run: echo "Hello Git"
+      # Step 1: Checkout the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Ensures all history is available
+        continue-on-error: false # Fail the job if checkout fails
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16" # Use Node.js 16
+          cache: "npm"
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm ci
+        working-directory: DevPlazaBackendInternal/user-mgmt
+        continue-on-error: false # Ensure dependencies install properly
+
+      # Step 4: Run ESLint for linting JavaScript/TypeScript files
+      - name: Run ESLint
+        run: npx eslint . --ext .js,.ts
+        working-directory: DevPlazaBackendInternal/user-mgmt
+        continue-on-error: false # Fail if linting errors are found
+
+      # Step 5: Run unit tests
+      - name: Run tests
+        run: npm test
+        working-directory: DevPlazaBackendInternal/user-mgmt
+        continue-on-error: false # Fail the job if tests fail
+
+      # Step 6: Upload test coverage report (if applicable)
+      - name: Upload test coverage report
+        if: success() # Run only if previous steps succeeded
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-coverage
+          path: DevPlazaBackendInternal/user-mgmt/coverage
+          retention-days: 7 # Store artifacts for 7 days
+
+      # Step 7: Notify failure (optional)
+      - name: Notify on failure
+        if: failure()
+        run: echo "❌ Code quality check failed!" && exit 1
