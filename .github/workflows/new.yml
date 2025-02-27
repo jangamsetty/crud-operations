@@ -1,1 +1,14 @@
-echo "Hii this is new yml"
+name: Your Workflow Name
+
+on:
+  workflow_dispatch: # Add this line to enable manual triggering
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Example Command
+        run: echo "Hello, World!"
