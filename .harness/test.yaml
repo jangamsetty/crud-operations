@@ -1,0 +1,35 @@
+pipeline:
+  name: test
+  identifier: test
+  projectIdentifier: buildproject
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: git
+        repoName: crud-operations
+        build: <+input>
+  stages:
+    - stage:
+        name: building
+        identifier: building
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Windows
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Sh
+                    command: npm i --f

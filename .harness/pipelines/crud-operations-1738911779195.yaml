@@ -1,0 +1,37 @@
+pipeline:
+  identifier: Build_crud_operations_1738911786813
+  name: Build crud-operations
+  orgIdentifier: default
+  projectIdentifier: buildproject
+  properties:
+    ci:
+      codebase:
+        build: <+input>
+        connectorRef: git
+        repoName: crud-operations
+  stages:
+    - stage:
+        identifier: build
+        name: build
+        spec:
+          caching:
+            enabled: true
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  identifier: echo
+                  name: echo
+                  spec:
+                    command: echo hello world
+                  timeout: ""
+                  type: Run
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+        type: CI
+  delegateSelectors:
+    - docker-delegate
