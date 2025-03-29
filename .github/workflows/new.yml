@@ -1,7 +1,7 @@
 name: Your Workflow Name
 
 on:
-  workflow_dispatch: # Add this line to enable manual triggering
+  workflow_dispatch: # Enables manual triggering
 
 jobs:
   build:
@@ -10,5 +10,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Run Example Command
-        run: echo "Hello, World!"
+      - name: Run Example Command with Error
+        run: |
+          echo "Hello, World!"
+          echo "Forcing an error now..."
+          ls /non_existent_directory # This will throw an error
+          exit 1
