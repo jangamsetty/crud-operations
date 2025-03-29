@@ -1,7 +1,7 @@
 name: Your Workflow Name
 
 on:
-  workflow_dispatch: # Enables manual triggering
+  workflow_dispatch: # Add this line to enable manual triggering
 
 jobs:
   build:
@@ -10,5 +10,5 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Print a success message
-        run: echo "✅ Workflow executed successfully!"
+      - name: Run Example Command
+        run: echo "Hello, World!"
